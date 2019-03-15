@@ -56,3 +56,17 @@ FFTW and FFTSS can be downloaded from:
 
 FFTW:  http://www.fftw.org/
 FFTSS: http://www.ssisc.org/fftss/
+
+Installation
+------------
+
+Under Archlinux, you can quickly see osgOcean node in action by building and running the oceanExample binary:
+
+```bash
+$ yay -Sy fftss
+$ cd <path_to_osgocean>
+$ mkdir build && pushd build && cmake .. && make -j$(nproc) && popd
+$ mkdir fonts && ln -s /usr/share/fonts/TTF/arial.ttf fonts/
+$ pushd resources/ && wget -i osgOcean-Resources-1.0.1.url && unrar x osgOcean-Resources-1.0.1.rar && ../scripts/fix-png-issue.sh && popd
+$ ./build/bin/oceanExample
+```
