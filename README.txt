@@ -63,7 +63,7 @@ Installation
 Under Archlinux, you can quickly see osgOcean node in action by building and running the oceanExample binary:
 
 ```bash
-$ yay -Sy fftss
+$ yay -Sy openscenegraph fftss ttf-ms-fonts unrar imagemagick
 $ cd <path_to_osgocean>
 $ mkdir build && pushd build && cmake .. && make -j$(nproc) && popd
 $ mkdir fonts && ln -s /usr/share/fonts/TTF/arial.ttf fonts/
