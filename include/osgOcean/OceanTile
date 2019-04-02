@@ -1,9 +1,9 @@
 /*
 * This source file is part of the osgOcean library
-* 
+*
 * Copyright (C) 2009 Kim Bale
 * Copyright (C) 2009 The University of Hull, UK
-* 
+*
 * This program is free software; you can redistribute it and/or modify it under
 * the terms of the GNU Lesser General Public License as published by the Free Software
 * Foundation; either version 3 of the License, or (at your option) any later
@@ -25,7 +25,7 @@
 
 namespace osgOcean
 {
-    /** 
+    /**
     * Stores vertices and normals for the geomipmp levels.
     */
     class OSGOCEAN_EXPORT OceanTile
@@ -41,33 +41,33 @@ namespace osgOcean
         float _averageHeight;                   /**< Average height (z) of vertices */
         float _maxHeight;                       /**< Maximum height (z) of vertices */
         bool  _useVBO;                          /**< Add relative position to tile placement */
-        
+
     public:
-        /** 
+        /**
         * Default constructor.
         * Initialises values to 0.
         */
         OceanTile( void );
 
-        /** 
+        /**
         * Constructor.
         * Copies heights into _vertices adding an extra row and column as a skirt, size: (N+1)*(N+1).
         * Data from the first row and column are copied into the last column and row.
         * Computes average height and normals of tile. Displacements are optional.
         */
-        OceanTile( osg::FloatArray* heights, 
-                   const unsigned int resolution, 
+        OceanTile( osg::FloatArray* heights,
+                   const unsigned int resolution,
                    const float spacing,
                    osg::Vec2Array* displacements = NULL,
                    bool useVBO = false);
 
-        /** 
+        /**
         * Down sampling constructor.
         * Down samples the passed OceanTile data and populates _vertices adding a skirt.
         * Down sampled vertices are averages of the surrounding 4 vertices.
         */
-        OceanTile( const OceanTile& tile, 
-                   unsigned int resolution, 
+        OceanTile( const OceanTile& tile,
+                   unsigned int resolution,
                    const float spacing );
 
         /**
@@ -79,7 +79,7 @@ namespace osgOcean
 
         ~OceanTile( void );
 
-        /** 
+        /**
         * Creates a DOT3 normal map based on the heightfield.
         * @return osg::Texture2D (size: _tileResolution*_tileResolution).
         */
@@ -125,19 +125,19 @@ namespace osgOcean
             return _spacing;
         }
 
-        inline const float getMaxDelta( void ) const {
+        inline float getMaxDelta( void ) const {
             return _maxDelta;
         }
 
-        inline const float getAverageHeight(void) const{
+        inline float getAverageHeight(void) const{
             return _averageHeight;
         }
 
-        inline const float getMaximumHeight(void) const{
+        inline float getMaximumHeight(void) const{
             return _maxHeight;
         }
 
-        inline const bool getUseVBO(void) const {
+        inline bool getUseVBO(void) const {
             return _useVBO;
         }
 

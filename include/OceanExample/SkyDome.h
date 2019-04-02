@@ -1,9 +1,9 @@
 /*
 * This source file is part of the osgOcean library
-* 
+*
 * Copyright (C) 2009 Kim Bale
 * Copyright (C) 2009 The University of Hull, UK
-* 
+*
 * This program is free software; you can redistribute it and/or modify it under
 * the terms of the GNU Lesser General Public License as published by the Free Software
 * Foundation; either version 3 of the License, or (at your option) any later
@@ -15,7 +15,10 @@
 * http://www.gnu.org/copyleft/lesser.txt.
 */
 
+#ifndef OCEANEXAMPLE_SkyDome_h
+#define OCEANEXAMPLE_SkyDome_h
 #pragma once
+
 #include "SphereSegment.h"
 #include <osg/Program>
 #include <osg/Uniform>
@@ -30,11 +33,11 @@ public:
 
 protected:
 	~SkyDome(void);
-	
+
 public:
 	void setupStateSet( osg::TextureCubeMap* cubemap );
 	void create( float radius, unsigned int latSteps, unsigned int longSteps, osg::TextureCubeMap* cubemap );
-	
+
 	inline void setCubeMap( osg::TextureCubeMap* cubemap ){
 		getOrCreateStateSet()->setTextureAttributeAndModes( 0, cubemap, osg::StateAttribute::ON );
 	}
@@ -43,3 +46,5 @@ private:
 	osg::ref_ptr<osg::Program> createShader(void);
 
 };
+
+#endif /* OCEANEXAMPLE_SkyDome_h */

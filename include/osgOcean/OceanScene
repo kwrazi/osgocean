@@ -132,9 +132,9 @@ namespace osgOcean
         {
             /// Simple constructor zeroing all variables.
             ViewData()
-                : _dirty( true )
-                , _cv( NULL )
+                : _cv( NULL )
                 , _oceanScene( NULL )
+                , _dirty( true )
                 , _reflectionCamera(NULL)
                 , _refractionCamera(NULL)
                 , _heightmapCamera(NULL)
@@ -149,25 +149,25 @@ namespace osgOcean
 
             virtual void updateStateSet( bool eyeAboveWater );
 
-            /// Method called by OceanScene to allow ViewData 
+            /// Method called by OceanScene to allow ViewData
             /// do the hard work computing reflections/refractions for its associated view
             virtual void cull( bool eyeAboveWater, bool surfaceVisible );
 
-            /// Dirty is called by parent OceanScene to force 
+            /// Dirty is called by parent OceanScene to force
             /// update of resources after some of them were modified in parent scene
             virtual void dirty( bool flag );
 
-            /// View's CullVisitor associated with this ViewData instance 
+            /// View's CullVisitor associated with this ViewData instance
             osg::observer_ptr< osgUtil::CullVisitor > _cv;
 
-            /// Parent OceanScene 
+            /// Parent OceanScene
             osg::observer_ptr< OceanScene > _oceanScene;
 
-            /// Mutex used to guard _dirty flag from override in case when parent technique calls 
+            /// Mutex used to guard _dirty flag from override in case when parent technique calls
             /// dirty() simultaneously with ViewData while it is updating resources inside init method.
             OpenThreads::Mutex _mutex;
 
-            /// Dirty flag tells this instance to update its resources 
+            /// Dirty flag tells this instance to update its resources
             bool _dirty;
 
             osg::Matrixf _reflectionMatrix;
@@ -184,7 +184,7 @@ namespace osgOcean
             friend class OceanScene;
         };
 
-        /// Map of view dependent data per view cull visitor (CVs are used as indices) 
+        /// Map of view dependent data per view cull visitor (CVs are used as indices)
         /// ViewDependentShadowTechnique uses this map to find VieData for each cull vitior
         typedef std::map< osg::observer_ptr< osgUtil::CullVisitor >,
                           osg::ref_ptr< ViewData > > ViewDataMap;
@@ -235,11 +235,11 @@ namespace osgOcean
         /// Get height of given (x,y) point in world space. Optionally returns the normal.
         float getOceanSurfaceHeightAt(float x, float y, osg::Vec3* normal = 0)
         {
-            return _surfaceHeight + 
+            return _surfaceHeight +
                    _oceanSurface->getSurfaceHeightAt(x, y, normal);
         }
 
-        /// Set the ocean surface world-space position. Note that the (x,y) 
+        /// Set the ocean surface world-space position. Note that the (x,y)
         /// components of the translation are of no consequence if the ocean
         /// surface is infinite, since the surface will follow the eye.
         void setOceanSurfaceTransform(const osg::Matrix& transform)
@@ -251,9 +251,9 @@ namespace osgOcean
             _isDirty = true;
         }
 
-        /// Returns the world-space position of the ocean surface. Note that 
-        /// the (x,y) components of the translation are of no consequence if 
-        /// the ocean surface is infinite, since the surface will follow the 
+        /// Returns the world-space position of the ocean surface. Note that
+        /// the (x,y) components of the translation are of no consequence if
+        /// the ocean surface is infinite, since the surface will follow the
         /// eye.
         osg::Matrix getOceanSurfaceTransform() const
         {
@@ -290,12 +290,12 @@ namespace osgOcean
         }
 
         /// Get the radius of the ocean cylinder.
-        inline const float getCylinderRadius( void ) const{
+        inline float getCylinderRadius( void ) const{
             return _oceanCylinder->getRadius();
         }
 
         /// Get the height of the ocean cylinder.
-        inline const float getCylinderHeight( void ) const{
+        inline float getCylinderHeight( void ) const{
             return _oceanCylinder->getHeight();
         }
 
@@ -311,7 +311,7 @@ namespace osgOcean
             return _viewsWithRTTEffectsDisabled;
         }
 
-        /// Enable reflections (one RTT pass when the eye is above the ocean 
+        /// Enable reflections (one RTT pass when the eye is above the ocean
         /// surface).
         inline void enableReflections( bool enable ){
             _enableReflections = enable;
@@ -323,7 +323,7 @@ namespace osgOcean
             return _enableReflections;
         }
 
-        /// If the eye is higher than this value above the ocean surface, 
+        /// If the eye is higher than this value above the ocean surface,
         /// reflections will not be rendered. Set to a very large value to
         /// disable this feature. Default is FLT_MAX.
         inline void setEyeHeightReflectionCutoff( float cutoff ){
@@ -343,7 +343,7 @@ namespace osgOcean
             _isDirty = true;
         }
 
-        /// Enable refractions (one RTT pass whether the eye is above or 
+        /// Enable refractions (one RTT pass whether the eye is above or
         /// below the ocean surface).
         inline void enableRefractions( bool enable ){
             _enableRefractions = enable;
@@ -355,8 +355,8 @@ namespace osgOcean
             return _enableRefractions;
         }
 
-        /// If the eye is lower than this value below the ocean surface, 
-        /// refractions will not be rendered. Set to a very large negative 
+        /// If the eye is lower than this value below the ocean surface,
+        /// refractions will not be rendered. Set to a very large negative
         /// value to disable this feature. Default is -FLT_MAX.
         inline void setEyeHeightRefractionCutoff( float cutoff ){
             _eyeHeightRefractionCutoff = cutoff;
@@ -375,7 +375,7 @@ namespace osgOcean
             _isDirty = true;
         }
 
-        /// Enable the height map pass (one RTT pass when the eye is above 
+        /// Enable the height map pass (one RTT pass when the eye is above
         /// the ocean surface - uses the same texture size as refractions).
         inline void enableHeightmap( bool enable ){
             _enableHeightmap = enable;
@@ -409,7 +409,7 @@ namespace osgOcean
             return _enableSilt;
         }
 
-        /// Sets the current screen size, needed to initialise the God Ray 
+        /// Sets the current screen size, needed to initialise the God Ray
         /// and DOF frame buffers. Default is 1024x768.
         inline void setScreenDims( osg::Vec2s size ){
             _screenDims = size;
@@ -428,7 +428,7 @@ namespace osgOcean
         }
 
         /// Enable underwater depth of field.
-        /// Also enables the use of the default scene shader as the effect 
+        /// Also enables the use of the default scene shader as the effect
         /// requires information stored in the alpha component.
         inline void enableUnderwaterDOF( bool enable ){
             _enableDOF = enable;
@@ -497,7 +497,7 @@ namespace osgOcean
         }
 
         /// Enable cross hatch glare.
-        /// Also enables the use of the default scene shader as the effect 
+        /// Also enables the use of the default scene shader as the effect
         /// requires information stored in the alpha component.
         inline void enableGlare( bool flag )
         {
@@ -678,7 +678,7 @@ namespace osgOcean
         }
 
         /// Changes the color of diffuse light used underwater.
-        /// @note Should be computing this from physical calculations. For 
+        /// @note Should be computing this from physical calculations. For
         /// the moment this is tweaked by hand.
         /// see: http://citeseer.ist.psu.edu/cache/papers/cs/26265/http:zSzzSzwww.cs.sunysb.eduzSz~ashzSzwaterCGF.pdf/
         void setUnderwaterDiffuse( const osg::Vec4f& diffuse )
@@ -694,7 +694,7 @@ namespace osgOcean
         }
 
         /// Change the attenuation of light underwater.
-        /// @note Should be computing this from physical calculations. For 
+        /// @note Should be computing this from physical calculations. For
         ///the moment this is tweaked by hand.
         /// see: http://citeseer.ist.psu.edu/cache/papers/cs/26265/http:zSzzSzwww.cs.sunysb.eduzSz~ashzSzwaterCGF.pdf/
         void setUnderwaterAttenuation( const osg::Vec3f& attenuation )
@@ -710,7 +710,7 @@ namespace osgOcean
         }
 
         /// Override the default scene shader for custom shaders.
-        /// If custom shaders are required for individual nodes add them 
+        /// If custom shaders are required for individual nodes add them
         /// before adding to the OceanScene.
         void setDefaultSceneShader( osg::Program* program )
         {
@@ -719,7 +719,7 @@ namespace osgOcean
         }
 
         /// Enable/Disable the use of the default scene shader.
-        /// This shader is required for the glare, and DOF effects as they 
+        /// This shader is required for the glare, and DOF effects as they
         /// require information stored in the alpha component.
         /// It also controls the above/below water fogging and lighting.
         /// Enabling glare or DOF will automatically enable the shader.
@@ -791,13 +791,13 @@ namespace osgOcean
         /// Post render pass for god rays. */
         osg::Camera* godrayFinalPass( void );
 
-        /// Downsample (1/4 original size) pass for depth of field and glare effect. 
+        /// Downsample (1/4 original size) pass for depth of field and glare effect.
         /// colorBuffer refers to the main frame buffer color image
         /// auxBuffer refers to the luminance buffer (glare) or depth buffer (dof).
-        osg::Camera* downsamplePass( 
+        osg::Camera* downsamplePass(
             osg::TextureRectangle* colorBuffer,
             osg::TextureRectangle* auxBuffer,
-            osg::TextureRectangle* outputTexture, 
+            osg::TextureRectangle* outputTexture,
             bool isGlareEffect );
 
         /// Gaussian blur passes for the depth of field effect.
@@ -805,10 +805,10 @@ namespace osgOcean
         osg::Camera* gaussianPass( osg::TextureRectangle* inputTexture, osg::TextureRectangle* outputTexture, bool isXAxis );
 
         /// Combine original FBO with downsampled blur image.
-        osg::Camera* dofCombinerPass( 
-            osg::TextureRectangle* fullscreenTexture, 
+        osg::Camera* dofCombinerPass(
+            osg::TextureRectangle* fullscreenTexture,
             osg::TextureRectangle* fullDepthTexture,
-            osg::TextureRectangle* blurTexture, 
+            osg::TextureRectangle* blurTexture,
             osg::TextureRectangle* outputTexture );
 
         /// Post render pass displays combined DOF buffer
@@ -832,8 +832,8 @@ namespace osgOcean
         osg::Camera* renderToTexturePass( osg::Texture* textureBuffer );
 
         /// Sets up a camera for a render MRT FBO pass.
-        osg::Camera* multipleRenderTargetPass( 
-            osg::Texture* texture0, osg::Camera::BufferComponent buffer0, 
+        osg::Camera* multipleRenderTargetPass(
+            osg::Texture* texture0, osg::Camera::BufferComponent buffer0,
             osg::Texture* texture1, osg::Camera::BufferComponent buffer1 );
 
         /// Create geometry for a screen aligned quad.

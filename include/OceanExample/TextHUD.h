@@ -1,10 +1,15 @@
+#ifndef OCEANEXAMPLE_TextHUD_h
+#define OCEANEXAMPLE_TextHUD_h
 #pragma once
+
 #include <osg/Camera>
 #include <osg/Geode>
 #include <osg/PositionAttitudeTransform>
 
 #include <osgText/Text>
 #include <osgText/Font>
+
+#include <osgOcean/Version>
 
 // ----------------------------------------------------
 //                  Text HUD Class
@@ -14,8 +19,8 @@ class TextHUD : public osg::Referenced
 {
 private:
     osg::ref_ptr< osg::Camera > _camera;
-    osg::ref_ptr< osgText::Text > _modeText;    
-    osg::ref_ptr< osgText::Text > _cameraModeText;    
+    osg::ref_ptr< osgText::Text > _modeText;
+    osg::ref_ptr< osgText::Text > _cameraModeText;
 
 public:
     TextHUD( void ){
@@ -46,9 +51,9 @@ public:
         title->setCharacterSize(14);
         title->setLineSpacing(0.4f);
 
-        std::string versionText = 
-            std::string("osgOcean ") + 
-            std::string(osgOceanGetVersion()) + 
+        std::string versionText =
+            std::string("osgOcean ") +
+            std::string(osgOceanGetVersion()) +
             std::string("\nPress 'h' for options");
 
         title->setText(versionText);
@@ -90,3 +95,5 @@ public:
         return _camera.get();
     }
 };
+
+#endif /* OCEANEXAMPLE_TextHUD_h */

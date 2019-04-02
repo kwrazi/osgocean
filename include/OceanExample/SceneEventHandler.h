@@ -1,4 +1,6 @@
 #pragma once
+#include <osgViewer/Viewer>
+
 #include <osgGA/GUIEventHandler>
 #include <osgGA/FlightManipulator>
 #include <osgGA/TrackballManipulator>
@@ -33,8 +35,8 @@ public:
         :_scene                (scene)
         ,_textHUD              (textHUD)
         ,_view                 (view)
-        ,_currentCameraMode    (FIXED)
         ,_initialCameraPosition(initialCameraPosition)
+        ,_currentCameraMode    (FIXED)
       {
           _textHUD->setSceneText("Clear");
           _textHUD->setCameraText("FIXED");

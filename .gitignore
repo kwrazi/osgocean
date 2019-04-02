@@ -1,3 +1,9 @@
 /build/
 /fonts/
 resources/osgOcean-Resources-1.0.1.rar
+/resources/boat/
+/resources/island/
+/resources/textures/sky_clear/
+/resources/textures/sky_dusk/
+/resources/textures/sky_fair_cloudy/
+/*.png

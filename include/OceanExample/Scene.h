@@ -1,4 +1,7 @@
+#ifndef OCEANEXAMPLE_Scene_h
+#define OCEANEXAMPLE_Scene_h
 #pragma once
+
 #include <osg/Switch>
 #include <osg/TextureCubeMap>
 
@@ -50,7 +53,7 @@ private:
     osg::ref_ptr<osg::Switch> _islandSwitch;
 
 public:
-    Scene( 
+    Scene(
         const osg::Vec2f& windDirection = osg::Vec2f(1.0f,1.0f),
         float windSpeed = 12.f,
         float depth = 10000.f,
@@ -59,10 +62,10 @@ public:
         bool  isChoppy = true,
         float choppyFactor = -2.5f,
         float crestFoamHeight = 2.2f,
-        bool  useVBO=false, 
+        bool  useVBO=false,
         const std::string& terrain_shader_basename = "terrain" );
 
-    void build( 
+    void build(
         const osg::Vec2f& windDirection,
         float windSpeed,
         float depth,
@@ -113,3 +116,5 @@ public:
 
     osg::Light* getLight() { return _light.get(); }
 };
+
+#endif /* OCEANEXAMPLE_Scene_h */
